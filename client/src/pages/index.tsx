@@ -1,16 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from '@tanstack/react-query';
 import { Item } from "../../../server/database/schema";
-
-// interface Item {
-//   itemId: number;;
-//   itemName: string;
-//   description: string;
-//   price: number;
-//   image: string;
-//   stockQuantity: number;
-//   // Add other fields as per your Item schema
-// }
+import { useSearchBarStore } from "../zustand/searchBarStore";
 
 const fetchItems = async (): Promise<Item[]> => {
   const response = await fetch("http://localhost:8080/items");
@@ -21,7 +12,21 @@ const fetchItems = async (): Promise<Item[]> => {
 };
 
 export const Index: React.FC = () => {
+
   const { data: items, error } = useQuery(['items'], fetchItems);
+  const { searchTerm, setShowSearchBar } = useSearchBarStore();
+
+  useEffect(() => {
+    setShowSearchBar(true); // Show search bar when Index component is mounted
+    return () => {
+      setShowSearchBar(false); // Hide search bar when Index component is unmounted
+    };
+  }, [setShowSearchBar]);
+
+  const filteredItems = items?.filter((item) => 
+    item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];
+
 
   return (
     <div className="px-8">
@@ -35,7 +40,7 @@ export const Index: React.FC = () => {
         ) : !items ? (
           <p>Loading...</p>
         ) : (
-          items.map((item, index, array) => (
+          filteredItems.map((item, index, array) => (
             <div key={item.itemId} className="item bg-white p-4 rounded shadow">
               <h3 className="text-lg font-semibold">{item.itemName}</h3>
               <p className="text-gray-600">{item.description}</p>
@@ -43,8 +48,7 @@ export const Index: React.FC = () => {
               <img
                 src={item.image}
                 alt={item.itemName}
-                className={`w-full h-96 object-contain rounded ${index === array.length - 1 ? "last-image-class" : ""
-                  }`}
+                className={`w-full h-96 object-contain rounded ${index === array.length - 1 ? "last-image-class" : ""}`}
               />
             </div>
           ))
