@@ -17,6 +17,7 @@ import { Cart } from "./pages/Cart.tsx";
 import { Items } from "./pages/admin/Items.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import { Users } from "./pages/admin/Users.tsx";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'; // Adjust the import to your file structure
 
 const rootRoute = new RootRoute({
   component: Root,
@@ -105,12 +106,17 @@ declare module "@tanstack/react-router" {
   }
 }
 
+const queryClient = new QueryClient();
+
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
+
   );
 }

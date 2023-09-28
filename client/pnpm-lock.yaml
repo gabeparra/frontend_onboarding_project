@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@tanstack/react-query':
+    specifier: ^4.35.3
+    version: 4.35.3(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/react-router':
     specifier: 0.0.1-beta.185
     version: 0.0.1-beta.185(react-dom@18.2.0)(react@18.2.0)
@@ -518,6 +521,28 @@ packages:
   /@swc/types@0.1.4:
     resolution: {integrity: sha512-z/G02d+59gyyUb7KYhKi9jOhicek6QD2oMaotUyG+lUkybpXoV49dY9bj7Ah5Q+y7knK2jU67UTX9FyfGzaxQg==}
     dev: true
+
+  /@tanstack/query-core@4.35.3:
+    resolution: {integrity: sha512-PS+WEjd9wzKTyNjjQymvcOe1yg8f3wYc6mD+vb6CKyZAKvu4sIJwryfqfBULITKCla7P9C4l5e9RXePHvZOZeQ==}
+    dev: false
+
+  /@tanstack/react-query@4.35.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-UgTPioip/rGG3EQilXfA2j4BJkhEQsR+KAbF+KIuvQ7j4MkgnTCJF01SfRpIRNtQTlEfz/+IL7+jP8WA8bFbsw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.35.3
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      use-sync-external-store: 1.2.0(react@18.2.0)
+    dev: false
 
   /@tanstack/react-router@0.0.1-beta.185(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-9MYwtdSlSv0D3B7UvjchjfSHju+wL0TSJf2oNVyMqaOE1X9Q0b+jWG8PG0S1nwQ/dPp0zRk9tQiNlFYNAA4ubA==}
